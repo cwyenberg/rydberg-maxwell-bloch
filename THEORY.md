@@ -6,7 +6,7 @@ We generalize here the rotating frame method to a system of $N$ atomic levels ha
 $$
 H = \sum_{i=1}^N \omega_i |i\rangle \langle i| + \sum_k \sum_{i<j} \left(\frac{\Omega_{ij,k}}{2} e^{-i \omega_k t} |i\rangle\langle j| + \text{h.c.}\right).
 $$
-Note that a subscript $i$ refers to an atomic energy level, while a subscript $k$ refers to a laser field angular frequency.
+Note that a subscript $i$ refers to an atomic energy level, while a subscript $k$ refers to a laser field angular frequency. Herein we will suppress the ranges on these indices.
 
 Let us define a rotating frame unitary transformation which factors off the natural non-interacting rotations of the various atomic energy levels. To that end, let
 $$
@@ -20,6 +20,7 @@ such that the Hamiltonian transforms to
 $$
 \begin{align}
 H^\prime &= U H U^\dagger - i U \frac{dU^\dagger}{dt} \\
-&= 
+&= \sum_{k,i<j} \left(\frac{\Omega_{ij,k}}{2} e^{-i(\omega_k - \Delta_{ik}) t} |i\rangle\langle j| + \text{h.c.}\right)
 \end{align}
 $$
+where $\Delta_{ij} = \omega_i - \omega_j$. Note that the internal atomic energies have vanished in the rotating frame.
