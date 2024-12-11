@@ -35,6 +35,7 @@ $$
 where $\tilde{\Delta}_{ij} = \tilde{\omega}_i - \tilde{\omega}_j$.
 
 We now drop fast oscillating terms; i.e., terms for which $\omega_k$ is far from $\tilde{\Delta}_{ij}$. Physically, this means that we retain the interaction between the pump field and the $g,e$ transition; and between the control field and any $e,r\in R$ transitions. Explicitly,
+
 $$
 H^\prime = -\delta_p |e\rangle\langle e| + \sum_{r} \left(-\delta_{c,r} |r\rangle\langle r| + \frac{\Omega_{er, p}}{2} \sigma^x_{er}\right).
 $$
