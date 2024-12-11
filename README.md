@@ -12,6 +12,16 @@ The states of the system are described by
 + Atomic levels chosen by consideration of the dressing fields and Doppler broadening extent
 + An intermediate "bath state" necessitated by spontaneous emission
 
+## Level structure
+
+The QVIL Caesium vapour cell operates between the following atomic states:
++ $nS_{1/2}$ : Secondary rydberg state $|r^\prime\rangle, \omega_{r^\prime}$
++ $nD_{5/2}$ : Rydberg state $|r\rangle, \omega_r$
++ $6P_{3/2}$ : Excited state $|e\rangle, \omega_e$
++ $6S_{1/2}$ : Ground state $|g\rangle, \omega_g$
+
+The probe field $\Omega_p$ operates on the $g,e$ transition at angular frequency $\omega_p = \omega_{ge} + \delta_{p,eg}$. The control field $\Omega_c$ operates on the $e,r$ transition at $\omega_c = \omega_{re} + \delta_{c,er}$. We generally denote the detuning of a pump/control field from a transition between any states $a,b$ by $\delta_{p/c,ab}=\omega_{p/c}-\omega_{ab}$.
+
 ## Steady-state considerations
 
 In steady-state conditions, $\frac{d\rho(v)}{dt} = 0$, we solve the equations for each velocity class assuming steady-state populations and coherences. The steady-state density matrix for the Doppler-broadened system is then:
