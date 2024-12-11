@@ -4,7 +4,7 @@
 
 In this document, please refer to the README.md file for any undefined quantities.
 
-We generalize here the rotating frame method to a system of $N$ atomic levels having energies $\omega_i$ and dressed by one ore more laser fields. Let the Rabi frequency of the $k\text{th}$ field coupling $|i\rangle$ and $|j\rangle$ be $\Omega_{ij,k}$. Letting $\hbar\rightarrow 1$ the total Hamiltonian is
+We generalise here the rotating frame method to a system of $N$ atomic levels having energies $\omega_i$ and dressed by one ore more laser fields. Let the Rabi frequency of the $k\text{th}$ field coupling $|i\rangle$ and $|j\rangle$ be $\Omega_{ij,k}$. Letting $\hbar\rightarrow 1$ the total Hamiltonian is
 $$
 H = \sum_{i=1}^N \omega_i |i\rangle \langle i| + \sum_k \sum_{i<j} \left(\frac{\Omega_{ij,k}}{2} e^{-i \omega_k t} |i\rangle\langle j| + \text{h.c.}\right).
 $$
@@ -27,11 +27,12 @@ $$
 \omega_g, & i \in G \\
 \omega_g + \omega_p, & i \in E \\
 \omega_e + \omega_c, & i \in R
-\end{cases}
+\end{cases}.
 $$
-such that the Hamiltonian transforms to
 
-CONTINUE HERE
+
+
+such that the Hamiltonian transforms to
 
 $$
 \begin{align}

@@ -20,7 +20,11 @@ The QVIL Caesium vapour cell operates between the following atomic states:
 + $6P_{3/2}$ : Excited state $|e\rangle, \omega_e$
 + $6S_{1/2}$ : Ground state $|g\rangle, \omega_g$
 
-The probe field $\Omega_p$ operates on the $g,e$ transition at angular frequency $\omega_p = \omega_{ge} + \delta_{p,eg}$. The control field $\Omega_c$ operates on the $e,r$ transition at $\omega_c = \omega_{re} + \delta_{c,er}$. We generally denote the detuning of a pump/control field from a transition between any states $a,b$ by $\delta_{p/c,ab}=\omega_{p/c}-\omega_{ab}$.
+The probe field $\Omega_p$ operates on the $g,e$ transition at angular frequency $\omega_p = \omega_{ge} + \delta_{p,eg}$. The control field $\Omega_c$ operates on the $e,r$ transition at $\omega_c = \omega_{re} + \delta_{c,er}$.
+
+In what follows it will be helpful to canonically associate detuning symbols to each atomic state as follows. For the ground state, we associate $\delta_g=0$. For any excited state of energy $\omega_i$ near $\omega_e$ we associate $\delta_i = \omega_p - (\omega_i-\omega_g)$; and for any rydberg state $\omega_j$ near $\omega_r$ we associate $\delta_j = \omega_c - (\omega_j - \omega_e)$. That is to say, we associate a detuning to each atomic state equal to the difference between its relevant driving field and its energy difference from the lower state of its driven transition.
+
+For some specific numbers, the QVIL lab operates the pump near 852 nm and the control near 509 nm.
 
 ## Steady-state considerations
 
