@@ -20,7 +20,7 @@ The QVIL Caesium vapour cell operates between the following atomic states:
 + $6P_{3/2}$ : Excited state $|e\rangle, \omega_e$
 + $6S_{1/2}$ : Ground state $|g\rangle, \omega_g$
 
-The probe field $\Omega_p$ operates on the $g,e$ transition at angular frequency $\omega_p = \omega_{ge} + \delta_{p,eg}$. The control field $\Omega_c$ operates on the $e,r$ transition at $\omega_c = \omega_{re} + \delta_{c,er}$. We generally denote the detuning of a pump/control field from a transition between any states $a,b$ by $\delta_{p/c,ab}=\omega_{p/c}-\omega_{ab}$.
+The probe field of Rabi strength $\Omega_p$ has angular frequency $\omega_p = \omega_{ge} + \delta_{p,eg}$ near the $g,e$ transition. The control field $\Omega_c$ has $\omega_c = \omega_{er} + \delta_{c,er}$ near the $e,r$ transition. QVIL operates its pump laser near a 852 nm $g,e$ transition and its control laser near a 509 nm $e,r$ transition.
 
 ## Steady-state considerations
 

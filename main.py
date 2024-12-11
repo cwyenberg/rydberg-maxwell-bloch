@@ -16,11 +16,8 @@ Rev History
 import numpy as np
 import scipy as sp
 import qutip as qt
-import matplotlib
-import matplotlib.pyplot as plt
-import scripts.atom_setup
+# import matplotlib
+# import matplotlib.pyplot as plt
+# import scripts.atom_setup
 
 print('hello world')
-
-plt.plot(1, 2)
-plt.show()
