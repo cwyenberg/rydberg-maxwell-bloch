@@ -34,8 +34,32 @@ H^\prime &= U H U^\dagger - i U \frac{dU^\dagger}{dt} \\
 $$
 where $\tilde{\Delta}_{ij} = \tilde{\omega}_i - \tilde{\omega}_j$.
 
-We now drop fast oscillating terms; i.e., terms for which $\omega_k$ is far from $\tilde{\Delta}_{ij}$. Physically, this means that we retain the interaction between the pump field and the $g,e$ transition; and between the control field and any $e,r\in R$ transitions. Explicitly,
-
+We now drop fast oscillating terms; i.e., terms for which $\omega_k$ is far from $\tilde{\Delta}_{ij}$. Physically, this means that we retain the interaction between the pump field and the $g,e$ transition; and between the control field and any $e,r\in R$ transitions, such that
 $$
-H^\prime = -\delta_p |e\rangle\langle e| + \sum_{r} \left(-\delta_{c,r} |r\rangle\langle r| + \frac{\Omega_{er, p}}{2} \sigma^x_{er}\right).
+H^\prime = -\delta_p |e\rangle\langle e| + \frac{\Omega_{ge, p}}{2} \sigma^x_{ge} + \sum_{r \in R} \left(-\delta_{c,r} |r\rangle\langle r| + \frac{\Omega_{er, c}}{2} \sigma^x_{er}\right),
+$$
+with $\sigma^x_{ab}=|a\rangle\langle b| + |b\rangle\langle a|$.
+
+## Dissipative terms and the master equation
+
+We now move to a density operator picture in order to introduce dissipative and dephasing processes. We will introduce Doppler broadening in a later section. Let $\rho$ denote the density operator of the atomic system, and let $\mathcal{D}\left[L_{ab}\right]$ denote the dissipative superoperator describing decay from $|b\rangle$ to $|a\rangle$ with jump operator $L_{ab} = |a\rangle\langle b|$. $\mathcal{D}\left[L_{ab}\right]$ acts on $\rho$ according to
+$$
+\mathcal{D}\left[L_{ab}\right] \rho = L_{ab} \rho L^\dagger_{ab} - \frac{1}{2} \left(L^\dagger_{ab} L_{ab} \rho + \rho L^\dagger_{ab} L_{ab}\right).
+$$
+The association of all $\mathcal{D}[L_{ab}]$ with rates $\Gamma_{ab}$ defines the Lindblad superoperator
+$$
+\mathcal{L} \left[\rho\right] = \sum_{ab} \Gamma_{ab} \mathcal{D}\left[L_{ab}\right] \rho
+$$
+with which we assemble the master equation
+$$
+\frac{d \rho}{dt} = - i \left[H^\prime, \rho \right] + \mathcal{L}\left[\rho\right].
+$$
+
+Projecting the master equation onto the atomic basis, it has representation
+$$
+\begin{align}
+\dot{\rho}_{gg} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{ge} - \rho_{eg}\right) + \Gamma_{eg} \rho_{ee} \\
+\dot{\rho}_{eg} &= i \delta_p \rho_{eg} + i \frac{\Omega_{ge,p}}{2} \left(\rho_{ee} - \rho_{gg}\right) - \frac{\Gamma_{eg}}{2} \rho_{eg} \\
+\dot{\rho}_{ee} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{eg} - \rho_{ge}\right) - \Gamma_{eg} \rho_{ee}
+\end{align}
 $$
