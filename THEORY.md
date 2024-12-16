@@ -18,12 +18,11 @@ U(t) = \sum_{i=1}^N e^{i \tilde{\omega}_i t} | i \rangle\langle i |
 $$
 for $\tilde{\omega}_i$ a set of rotating frame angular frequencies defined by
 $$
-\tilde{\omega}_i =
-\begin{cases}
-\omega_g, & i = g \\
-\omega_g + \omega_p, & i = e \\
-\omega_g + \omega_p + \omega_c, & i \in R,
-\end{cases}
+\begin{align}
+\tilde{\omega}_g &= \omega_g \\
+\tilde{\omega}_e &= \omega_g + \omega_p \\
+\tilde{\omega}_r &= \omega_e + \omega_c, r \in R
+\end{align}
 $$
 where $R$ is the manifold of Rydberg states. The Hamiltonian is transformed to
 $$
@@ -58,8 +57,11 @@ $$
 Projecting the master equation onto the atomic basis, it has representation
 $$
 \begin{align}
-\dot{\rho}_{gg} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{ge} - \rho_{eg}\right) + \Gamma_{eg} \rho_{ee} \\
-\dot{\rho}_{eg} &= i \delta_p \rho_{eg} + i \frac{\Omega_{ge,p}}{2} \left(\rho_{ee} - \rho_{gg}\right) - \frac{\Gamma_{eg}}{2} \rho_{eg} \\
-\dot{\rho}_{ee} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{eg} - \rho_{ge}\right) - \Gamma_{eg} \rho_{ee}
+\dot{\rho}_{gg} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{ge} - \rho_{eg}\right) + \Gamma_{ge} \rho_{ee} + \sum_r \Gamma_{gr} \rho_{rr} \\
+\dot{\rho}_{eg} &= i \delta_p \rho_{eg} + i \frac{\Omega_{ge,p}}{2} \left(\rho_{ee} - \rho_{gg}\right) - \frac{\Gamma_{ge}}{2} \rho_{eg} \\
+\dot{\rho}_{rg} &= i\delta_{c,r} \rho_{rg} - \frac{\Gamma_{gr}}{2} \rho_{rg}\\
+\dot{\rho}_{ee} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{eg} - \rho_{ge}\right) + i \sum_r \frac{\Omega_{er,c}}{2}\left(\rho_{er}-\rho_{re}\right) - \Gamma_{ge} \rho_{ee} + \sum_r \Gamma_{er} \rho_{rr} \\
+\dot{\rho}_{re} &= i \left(\delta_{c,r}-\delta_p\right) \rho_{re} + i \frac{\Omega_{er,c}}{2} \left(\rho_{rr}-\rho_{ee}\right) - \frac{\Gamma_{er}}{2} \rho_{re} \\
+\dot{\rho}_{rr} &= i \frac{\Omega_{er,c}}{2}\left(\rho_{re} - \rho_{er} \right) - \left(\Gamma_{er} + \Gamma_{gr}\right) \rho_{er}
 \end{align}
 $$

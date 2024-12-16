@@ -15,7 +15,7 @@ The states of the system are described by
 ## Level structure
 
 The QVIL Caesium vapour cell operates between the following atomic states:
-+ $nS_{1/2}$ : Secondary rydberg state $|r^\prime\rangle, \omega_{r^\prime}$
++ $R$ : Additional rydberg states $|r^\prime\rangle, \omega_{r^\prime}$
 + $nD_{5/2}$ : Rydberg state $|r\rangle, \omega_r$
 + $6P_{3/2}$ : Excited state $|e\rangle, \omega_e$
 + $6S_{1/2}$ : Ground state $|g\rangle, \omega_g$
