@@ -24,8 +24,14 @@ Delta l = +/-1
 Delta j = 0, +/-1
 Delta mj = 0
 
+UNIT CONVENTIONS
+Energy in MHz
+Dipole in MHz/(V/m)
+Gamma in us^-1 (note not referred to as MHz, since appears as coeff in diff eq)
+
 """
 
+# Generic imports
 import numpy as np
 from matplotlib import pyplot as plt
 from arc import *
@@ -41,26 +47,26 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from fns.fns_rydberg_mb import *
 from classes.classes_rydberg_mb import *
 
-# Constants
-c_light = 2.99792e8
-h_planck = 6.62607e-34
-e_coulomb = 1.60218e-19
-ev_to_mhz = 1e-6 * e_coulomb / h_planck
-
-# Load parameters for Caesium
-atom = Caesium()
-
-print(atom.getDipoleMatrixElement(6,0,.5,.5,7,1,.5,.5,0))
-print(atom.getDipoleMatrixElement(6,3,2.5,.5,7,2,1.5,-.5,0))
-
-
+# Sim size
 nmin = 6  # Minimum n
 nmax = 7  # Maximum n
 lmin = 0  # Minimum l
-lmax = 2  # Maximum l
-for state_tuple in AtomicNLJMIterator(nmin, nmax, lmax):
-    print(state_tuple)
+lmax = 1  # Maximum l
 
+# Constants and conversions
+c_light = 2.99792e8             # m / s
+h_planck = 6.62607e-34          # SI, J / Hz
+hbar_planck = h_planck / (2. * np.pi)   # SI, J / (rad/s)
+e_coulomb = 1.60218e-19         # C
+a0_metres = 5.29177e-11         # m
+eps0_si = 8.854187817e-12       # C^2 / (J m)
+
+joules_to_mhz = 1e-6 / h_planck
+ev_to_mhz = e_coulomb * joules_to_mhz
+ea0_to_mhz_v_m = e_coulomb * a0_metres * joules_to_mhz
+
+# Load parameters for Caesium
+atom = Caesium()
 
 """ ASSEMBLE THE ENERGY LEVELS
 Pull energy levels from the ARC database
@@ -69,14 +75,14 @@ Pull energy levels from the ARC database
 """
 
 levels_df = pd.DataFrame()
-for [n, l, j, mj] in AtomicNLJMIterator(nmin, nmax, lmax, iter_mj=True):
-    this_energy = atom.getEnergy(n,l,j) * ev_to_mhz
-    this_state_str = build_state_str(n,l,j)
+for state_tuple in AtomicNLJMIterator(nmin, nmax, lmax, iter_mj=True):
+    this_energy = atom.getEnergy(*state_tuple[:3]) * ev_to_mhz
     this_entry = pd.DataFrame({
         'energy' : this_energy},
-        index = [this_state_str])
+        index = [state_tuple])
     levels_df = pd.concat([levels_df, this_entry])
 
+print(levels_df)
 
 """ ASSEMBLE TRANSITIONS
 
@@ -87,13 +93,27 @@ Assemble a dataframe of the transitions,
     'dip' : dipole elt in MHz/(V/m)
 
 """
-
 trans_df = pd.DataFrame()
-for state_a in AtomicNLJMIterator(nmin,nmax,lmax,iter_mj=True):
-    for state_b in AtomicNLJMIterator(nmin,nmax,lmax,iter_mj=True):
-        if is_lin_dip_permitted(state_a, state_b): print(str(state_a) + '-' + str(state_b))
+for state_a in AtomicNLJMIterator(nmin,nmax,lmax):
+    for state_b in AtomicNLJMIterator(nmin,nmax,lmax):
+        if not is_lin_dip_permitted(state_a, state_b): continue     # Store only dipole permitted transitions
+        if state_b[1] <= state_a[1] : continue      # l1 < l2 by convention for transitions
+        trans_tuple = (*state_a, *state_b)
+        dip = atom.getDipoleMatrixElement(*state_a, *state_b, 0) * ea0_to_mhz_v_m
+        delta = levels_df.at[state_a,'energy'] - levels_df.at[state_b,'energy']
+        omega_si = delta * 1e6 * 2. * np.pi
+        dip_si = dip / joules_to_mhz
+        gamma_us = 1e-6 * (
+            omega_si ** 3 * dip_si ** 2
+            / (3. * np.pi * eps0_si * hbar_planck * c_light ** 3))
+        this_entry = pd.DataFrame({
+            'delta' : delta,
+            'dip' : dip,
+            'gamma' : gamma_us},
+            index = [trans_tuple])
+        trans_df = pd.concat([trans_df, this_entry])
 
-
+print(trans_df)
 
 #  Enumerate all energy differences between non-forbidden
 #  transitions

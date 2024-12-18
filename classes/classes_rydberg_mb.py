@@ -4,8 +4,8 @@ class AtomicNLJMIterator:
     def __init__(self, nmin:int, nmax:int, lmax:int, iter_mj=True):
         """
         An iterator through valid atomic states,
-        returned as a list:
-        [n,l,j,m_j]
+        returned as a tuple:
+        (n,l,j,m_j)
 
         """
         self.nmin = nmin
@@ -40,4 +40,4 @@ class AtomicNLJMIterator:
 
         if not self.iter_mj : self.nljm[3] = self.nljm[2]
         
-        return self.nljm
+        return tuple(self.nljm)
