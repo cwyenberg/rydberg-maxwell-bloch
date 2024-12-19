@@ -80,6 +80,7 @@ Pull energy levels from the ARC database
 
 """
 
+print('Assembling energy levels...')
 levels_list = []
 index_list = []
 for this_state in AtomicNLJMIterator(nmin, nmax, lmax, iter_mj=False):
@@ -89,7 +90,6 @@ for this_state in AtomicNLJMIterator(nmin, nmax, lmax, iter_mj=False):
     
 levels_df = pd.DataFrame(levels_list, index=index_list)
 
-print(levels_df)
 
 """ ASSEMBLE TRANSITIONS
 
@@ -100,6 +100,8 @@ Assemble a dataframe of the transitions,
     'dip' : dipole elt in MHz/(V/m)
 
 """
+
+print('Assembling transitions...')
 trans_list = []
 index_list = []
 for state_a in AtomicNLJMIterator(nmin,nmax,lmax):
@@ -126,14 +128,29 @@ for state_a in AtomicNLJMIterator(nmin,nmax,lmax):
         index_list.append(trans_tuple)
 trans_df = pd.DataFrame(trans_list, index=index_list)
 
-print('The transitions are')
-print(trans_df)
+print('The 6p3/2 to 34d5/2 transition Doppler broadening fwhm is ')
+print(trans_df.at[(6,1,1.5,34,2,2.5), 'doppler'])
 
-print('The transition deviations from 6s1/2--6p3/2 are (ranked):')
-print(compare_transitions((6,0,0.5,6,1,1.5), trans_df))
+print('The 6s1/2 to 6p3/2 wavelength is ')
+print(frequency_to_wavelength(trans_df.at[(6,0,0.5,6,1,1.5), 'delta']))
+print('The top five nearest deviations from 6s1/2--6p3/2 are (ranked):')
+ref_delta = trans_df.at[(6,0,0.5,6,1,1.5), 'delta']
+print(compare_transitions(ref_delta, trans_df).head())
 print('-')
 
-print('The transition deviations from 6p3/2--34d5/2 are (ranked):')
-print(compare_transitions((6,1,1.5,34,2,2.5), trans_df))
+print('The 6p3/2 to 34d5/2 wavelength is ')
+print(frequency_to_wavelength(trans_df.at[(6,1,1.5,34,2,2.5), 'delta']))
+print('The top five nearest deviations from 6p3/2--34d5/2 are (ranked):')
+ref_delta = trans_df.at[(6,1,1.5,34,2,2.5), 'delta']
+print(compare_transitions(ref_delta, trans_df).head())
 print('-')
 
+print('The top five nearest transitions to 852 nm are (ranked):')
+ref_delta = wavelength_to_frequency(852)
+print(compare_transitions(ref_delta, trans_df).head())
+print('-')
+
+print('The top five nearest transitions to 509 nm are (ranked):')
+ref_delta = wavelength_to_frequency(509)
+print(compare_transitions(ref_delta, trans_df).head())
+print('-')
