@@ -2,6 +2,7 @@ import numpy as np
 import scipy as sp
 import qutip as qtp
 import re
+import pandas as pd
 
 def parse_spec_state(state_str):
     # Define a dictionary to convert orbital symbols to quantum numbers
@@ -43,3 +44,15 @@ def is_lin_dip_permitted(state_a:list, state_b:list):
     if abs(la-lb) != 1 or abs(ja-jb) > 1 or ma != mb : return False
     
     return True
+
+
+def compare_transitions(ref_trans:tuple, trans_df:pd.DataFrame):
+
+    ref_delta = abs(trans_df.at[ref_trans,'delta'])
+    trans_diff_list = []
+    for _, row in trans_df.iterrows():
+        this_diff = {'trans_diff': abs(abs(row['delta']) - ref_delta)}
+        trans_diff_list.append(this_diff)
+
+    trans_diff_df = pd.DataFrame(trans_diff_list, index=trans_df.index)
+    return trans_diff_df.sort_values(by='trans_diff')

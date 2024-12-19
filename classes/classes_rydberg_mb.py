@@ -40,4 +40,5 @@ class AtomicNLJMIterator:
 
         if not self.iter_mj : self.nljm[3] = self.nljm[2]
         
-        return tuple(self.nljm)
+        if self.iter_mj : return tuple(self.nljm)
+        else : return tuple(self.nljm[:3])
