@@ -16,11 +16,11 @@ The states of the system are described by
 
 The QVIL Caesium vapour cell operates between the following atomic states:
 + $R$ : Additional rydberg states $|r^\prime\rangle, \omega_{r^\prime}$
-+ $nD_{5/2}$ : Rydberg state $|r\rangle, \omega_r$
++ $34D_{5/2}$ : Rydberg state $|r\rangle, \omega_r$
 + $6P_{3/2}$ : Excited state $|e\rangle, \omega_e$
 + $6S_{1/2}$ : Ground state $|g\rangle, \omega_g$
 
-The probe field of Rabi strength $\Omega_p$ has angular frequency $\omega_p = \omega_{ge} + \delta_{p,eg}$ near the $g,e$ transition. The control field $\Omega_c$ has $\omega_c = \omega_{er} + \delta_{c,er}$ near the $e,r$ transition. QVIL operates its pump laser near a 852 nm $g,e$ transition and its control laser near a 509 nm $e,r$ transition.
+The pump field of Rabi strength $\Omega_p$ has angular frequency $\omega_p = \omega_{ge} + \delta_{p,eg}$ near the $g,e$ transition. The control field $\Omega_c$ has $\omega_c = \omega_{er} + \delta_{c,er}$ near the $e,r$ transition. QVIL operates its pump laser near an 852 nm $g,e$ transition and its control laser near a 511 nm $e,r$ transition.
 
 ## Steady-state considerations
 
