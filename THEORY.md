@@ -24,11 +24,11 @@ H^\prime &= U H U^\dagger - i U \frac{dU^\dagger}{dt} \\
 &= -\sum_i \delta_i |i\rangle\langle i| + \sum_{k,i<j} \left(\frac{\Omega_{ij,k}}{2} e^{-i(\omega_k - \tilde{\Delta}_{ij}) t} |i\rangle\langle j| + \text{h.c.}\right)
 \end{align}
 $$
-where $\tilde{\Delta}_{ij} = \tilde{\omega}_i - \tilde{\omega}_j$.
+where $\delta_i = \tilde{\omega}_i - \omega_i$ and $\tilde{\Delta}_{ij} = \tilde{\omega}_i - \tilde{\omega}_j$.
 
-We now drop fast oscillating terms; i.e., terms for which $\omega_k$ is far from $\tilde{\Delta}_{ij}$ such that the laser field is effectively decoupled from the transition. Physically, this requires that the laser bandwidth, the Rabi frequency, the Doppler broadening, and the natural linewidth together do not imply potential overlap. A typical laser bandwidth is on the order of 10 MHz, our Rabi frequencies are on the order of 10s of MHz, a Doppler broadening at room temperature is near 200 MHz at FWHM, and a natural linewidth on the order of 10 MHz.
+We now drop fast oscillating terms; i.e., terms for which $\omega_k$ is `far' from $|\omega_i - \omega_j|$ such that the laser field is effectively decoupled from the transition. More precisely, 'far' implies that the laser bandwidth, the Rabi frequency, the Doppler broadening, and the natural linewidth together do not present potential overlap. A typical laser bandwidth is on the order of 10s of MHz, our Rabi frequencies are on the order of 10s of MHz, a Doppler broadening at room temperature is near 200 MHz at FWHM, and a natural linewidth on the order of 10s of MHz.
 
-Upon profiling the transitions ('transition_profiling.py'), we find that nearly all transitions deviate from the target 6s1/2--6p3/2 or 6p3/2--34d5/2 transitions by amounts on the order of THz, and thus do not couple at all to the laser fields; one single exception is the 6p3/2--34d3/2 transition, which differs from the 6p3/2--34d5/2 transition by only 2 GHz, putting it very slightly near the driving field upon accounting for Doppler broadening. Thus, we essentially need only retain Rabi terms on the three transitions
+Upon profiling the transitions ('transition_profiling.py'), we find that nearly all transitions deviate from the target 6s1/2--6p3/2 or 6p3/2--34d5/2 transitions by amounts on the order of THz, and therefore do not couple to the laser fields; one single exception is the 6p3/2--34d3/2 transition, which differs from the 6p3/2--34d5/2 transition by only 2 GHz, putting it very slightly near the driving field upon accounting for Doppler broadening. Thus, we essentially need only retain Rabi terms on the three transitions
 + 6s1/2--6p3/2: (by design of the pump laser),
 + 6p3/2--34d5/2 (by design of the control laser), and
 + 6p3/2--34d3/2 (incidental coupling to the control laser).
@@ -51,11 +51,11 @@ $$
 
 such that
 $$
-H^\prime = -\delta_p |e\rangle\langle e| - \delta_{r_1} |r_1\rangle\langle r_1| - \delta_{r_2} |r_2\rangle\langle r_2| + \frac{\Omega_{ge, p}}{2} \sigma^x_{ge} + \frac{\Omega_{er_1, c}}{2} \sigma^x_{er_1} + \frac{\Omega_{er_2, p}}{2} \sigma^x_{er_2},
+H^\prime = -\delta_p |e\rangle\langle e| - \delta_{r_1} |r_1\rangle\langle r_1| - \delta_{r_2} |r_2\rangle\langle r_2| + \frac{\Omega_{ge, p}}{2} \sigma^x_{ge} + \frac{\Omega_{er_1, c}}{2} \sigma^x_{er_1} + \frac{\Omega_{er_2, c}}{2} \sigma^x_{er_2},
 $$
 where $\sigma^x_{ab}=|a\rangle\langle b| + |b\rangle\langle a|$.
 
-## Dissipative terms and the master equation
+## Spontaneous emission
 
 We now move to a density operator picture in order to introduce dissipative and dephasing processes. We will introduce Doppler broadening in a later section. Let $\rho$ denote the density operator of the atomic system, and let $\mathcal{D}\left[L_{ab}\right]$ denote the dissipative superoperator describing decay from $|b\rangle$ to $|a\rangle$ with jump operator $L_{ab} = |a\rangle\langle b|$. $\mathcal{D}\left[L_{ab}\right]$ acts on $\rho$ according to
 $$
@@ -70,9 +70,17 @@ $$
 \frac{d \rho}{dt} = - i \left[H^\prime, \rho \right] + \mathcal{L}\left[\rho\right].
 $$
 
-Projecting the master equation onto the atomic basis, it has representation
+## Valid transitions
+
+At this point it is helpful to identify the non-vanishing transitions in order to limit the size of our atomic Hilbert space. The linearly polarized dipole transitions couple only states $|n,l,j,m_j\rangle$ and $|n^\prime,l^\prime,j^\prime,m^\prime_j\rangle$ for which $|l-l^\prime|=1$, $|j-j^\prime| \leq 1$, and $m_j = m^\prime_j$; while the circularly polarized dipole transitions couple states for which 
+
+Besides those states coupled via the dominant Rabi terms, the system may only couple to other states populated via non-negligible decay processes.
 
 CONTINUE HERE...
+
+Projecting the master equation onto the atomic basis, it has representation
+
+
 
 $$
 \begin{align}
