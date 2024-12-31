@@ -65,22 +65,21 @@ def build_state_str(n: int, l: int, j: float):
     return str(n) + orb_mapping[l] + str(j)
 
 
-def is_lin_dip_permitted(state_a:tuple, state_b:tuple):
+def dip_trans_type(state_a:tuple, state_b:tuple) -> tuple:
     """
-    Check if a transition between two states is permitted under the leading dipole approximation with linear polarization.
+    Check if a transition between two states is valid and return its type.
     Args:
-        state_a (tuple): Quantum numbers (n, l, j, m) for the initial state.
-        state_b (tuple): Quantum numbers (n, l, j, m) for the final state.
+        state_a (tuple): Quantum numbers (n, l, j, mj) for the initial state.
+        state_b (tuple): Quantum numbers (n, l, j, mj) for the final state.
     Returns:
-        bool: True if the transition is permitted, False otherwise.
+        Tuple(bool, int): (validity, -1 : left / 0 : linear / 1 : right / 9 : invalid)
 
     """
     (na, la, ja, ma) = state_a
     (nb, lb, jb, mb) = state_b
 
-    if abs(la-lb) != 1 or abs(ja-jb) > 1 or ma != mb : return False
-    
-    return True
+    if abs(la-lb) != 1 or abs(ja-jb) > 1 or abs(ma-mb) > 1 : return (False, 9)
+    else : return (True, int(mb - ma))
 
 
 def compare_transitions(ref_delta: float, trans_df: pd.DataFrame):

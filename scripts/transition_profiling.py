@@ -10,8 +10,7 @@ ON PERMITTED TRANSITIONS
 On the topic of permitted transitions, there are multiple factors to consider:
 1. Conventional conservation laws: Delta j = 0, +/-1; Delta mj = 0, +/- 1
 2. Specific symmetries of the dipole transition (which dominates): the wavefunction
-must change parity; i.e., Delta l = +/- 1; and the interaction does not involve
-the magnetic moment; i.e., mj will not change.
+must change parity; i.e., Delta l = +/- 1.
 Note that Delta j = 0 can occur; this does not contradict conservation of total
 angular momentum due to the following subtlety: although the photon carries away
 1 hbar, j is related to the magnitude of the total angular momentum, and not the
@@ -22,7 +21,7 @@ Practically, the only dipole transitions we witness obey:
 
 Delta l = +/-1
 Delta j = 0, +/-1
-Delta mj = 0
+Delta mj = 0, +-1 (0 for linear, +/- 1 for left- or right-circular, unsure of respectively(?))
 
 UNIT CONVENTIONS
 Energy in MHz
@@ -50,9 +49,9 @@ from classes.classes_rydberg_mb import *
 
 # Sim size
 nmin = 6  # Minimum n
-nmax = 35  # Maximum n
+nmax = 7  # Maximum n
 lmin = 0  # Minimum l
-lmax = 5  # Maximum l
+lmax = 2  # Maximum l
 
 # Constants and conversions
 c_light = 2.99792e8             # m / s
@@ -80,6 +79,15 @@ Pull energy levels from the ARC database
 
 """
 
+""" DIAGNOSTICS """
+
+state_a = (6, 1, 1.5, .5)
+state_b = (6, 2, 1.5, -.5)
+print('This transition has dip ')
+print(atom.getDipoleMatrixElement(*state_a, *state_b, -1) * ea0_to_mhz_v_m)
+
+
+
 print('Assembling energy levels...')
 levels_list = []
 index_list = []
@@ -106,27 +114,38 @@ trans_list = []
 index_list = []
 for state_a in AtomicNLJMIterator(nmin,nmax,lmax):
     for state_b in AtomicNLJMIterator(nmin,nmax,lmax):
-        if not is_lin_dip_permitted(state_a, state_b) : continue     # Store only dipole permitted transitions
-        if state_a[3] != .5 : continue      # Wlog choose only mj=0.5 states
-        if state_b[1] <= state_a[1] : continue      # l1 < l2 by convention for transitions
-        dip_mhz_v_m = atom.getDipoleMatrixElement(*state_a, *state_b, 0) * ea0_to_mhz_v_m
+        dip_valid, dip_type = dip_trans_type(state_a, state_b)
+        if not dip_valid : continue     # Store only dipole permitted transitions
+        if state_b[1] <= state_a[1] : continue      # l1 < l2 to avoid double counting
+        dip_mhz_v_m = atom.getDipoleMatrixElement(*state_a, *state_b, dip_type) * ea0_to_mhz_v_m
         delta_mhz = levels_df.at[state_b[:3], 'energy'] - levels_df.at[state_a[:3], 'energy']
         omega_si = delta_mhz * 1e6 * 2. * np.pi
         dip_si = dip_mhz_v_m / joules_to_mhz
-        gamma_us = 1e-6 * (
+        gamma_us = 1e-6 * abs(
             omega_si ** 3 * dip_si ** 2
             / (3. * np.pi * eps0_si * hbar_planck * c_light ** 3))
         lwid_mhz = gamma_us / (2. * np.pi)
         doppler_mhz = delta_mhz * v_fwhm / c_light
-        trans_tuple = (*state_a[:3], *state_b[:3])
+        trans_tuple = (*state_a, *state_b)
         trans_list.append({
             'delta' : delta_mhz,
             'dip' : dip_mhz_v_m,
-            'gamma' : abs(gamma_us),
-            'lwid' : abs(lwid_mhz),
+            'dip-type' : dip_type,
+            'gamma' : gamma_us,
+            'lwid' : lwid_mhz,
             'doppler' : doppler_mhz})
         index_list.append(trans_tuple)
 trans_df = pd.DataFrame(trans_list, index=index_list)
+
+nrows = 100
+print(trans_df.sort_values(by='gamma', ascending=False).head(nrows).to_string())
+
+# plt.cla()
+# print('Plotting the spontaneous emission rates...')
+# gamma_vals = trans_df['gamma'].to_numpy()
+# plt.scatter(range(gamma_vals.shape[0]),gamma_vals)
+# plt.show()
+
 
 print('The 6p3/2 to 34d5/2 transition Doppler broadening fwhm is ')
 print(trans_df.at[(6,1,1.5,34,2,2.5), 'doppler'])
