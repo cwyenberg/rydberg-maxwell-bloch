@@ -47,11 +47,13 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from fns.fns_rydberg_mb import *
 from classes.classes_rydberg_mb import *
 
+pd.set_option('display.max_rows', None)
+
 # Sim size
 nmin = 6  # Minimum n
-nmax = 7  # Maximum n
+nmax = 70  # Maximum n
 lmin = 0  # Minimum l
-lmax = 2  # Maximum l
+lmax = 1  # Maximum l
 
 # Constants and conversions
 c_light = 2.99792e8             # m / s
@@ -137,8 +139,31 @@ for state_a in AtomicNLJMIterator(nmin,nmax,lmax):
         index_list.append(trans_tuple)
 trans_df = pd.DataFrame(trans_list, index=index_list)
 
-nrows = 100
-print(trans_df.sort_values(by='gamma', ascending=False).head(nrows).to_string())
+trans_lvls = np.arange(7,71)
+trans_rates = np.empty(trans_lvls.shape[0], dtype=float)
+trans_dips = np.empty(trans_lvls.shape[0], dtype=float)
+trans_deltas = np.empty(trans_lvls.shape[0], dtype=float)
+for id, top_lvl in enumerate(trans_lvls):
+    trans_tuple = (6, 0, 0.5, 0.5, top_lvl, 1, 1.5, 0.5)
+    trans_rates[id] = trans_df.at[trans_tuple, 'gamma']
+    trans_dips[id] = trans_df.at[trans_tuple, 'dip']
+    trans_deltas[id] = trans_df.at[trans_tuple, 'delta']
+
+plt.cla()
+plt.loglog(trans_lvls, trans_rates)
+plt.title('Transition rates to ground vs principal')
+plt.show()
+
+plt.cla()
+plt.loglog(trans_lvls, np.abs(trans_dips))
+plt.title('Transition dipoles to ground vs principal')
+plt.show()
+
+plt.cla()
+plt.loglog(trans_lvls, trans_deltas)
+plt.title('Transition deltas to ground vs principal')
+plt.show()
+
 
 # plt.cla()
 # print('Plotting the spontaneous emission rates...')
