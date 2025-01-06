@@ -72,9 +72,45 @@ $$
 
 ## Valid transitions
 
-At this point it is helpful to identify the non-vanishing transitions in order to limit the size of our atomic Hilbert space. The linearly polarized dipole transitions couple only states $|n,l,j,m_j\rangle$ and $|n^\prime,l^\prime,j^\prime,m^\prime_j\rangle$ for which $|l-l^\prime|=1$, $|j-j^\prime| \leq 1$, and $m_j = m^\prime_j$; while the circularly polarized dipole transitions couple states for which 
+At this point it is helpful to identify the non-vanishing transitions in order to limit the size of our atomic Hilbert space. The linearly polarized dipole transitions couple only states for which $\Delta l = \pm 1$, $\Delta j = 0, \pm 1$, and $\Delta m_j = 0$; while the circularly polarized dipole transitions couple states for which $\Delta l = \pm 1$, $\Delta j = 0, \pm 1$, and $\Delta m_j = \pm 1$ (the sign of $\Delta m_j$ corresponding to the handedness of the photon).
 
-Besides those states coupled via the dominant Rabi terms, the system may only couple to other states populated via non-negligible decay processes.
+Besides those states coupled via the dominant Rabi terms, the system may only couple to other states populated via non-negligible decay processes. Towards an understanding of the dominant decay channels, we tabulate here a few of the transition rates. Note that for each given transition listed below there exists also a transition of equal rate with negated initial and final $m_j$ values.
+
+| Upper State, $m_j$ | Lower State, $m_j$ | $\Gamma$ ($\text{us}^{-1}$) |
+|-------------|-------------|--------|
+| 6P3/2, 3/2  | 6S1/2, 1/2  | 3.3E1  |
+| 6P3/2, 1/2  | 6S1/2, 1/2  | 2.2E1  |
+| 6P1/2, 1/2  | 6S1/2, -1/2 | 1.9E1  |
+| 6D5/2, 5/2  | 6P3/2, 3/2  | 1.6E1  |
+| 6D3/2, 3/2  | 6P1/2, 1/2  | 1.3E1  |
+| 6P3/2, 1/2  | 6S1/2, -1/2 | 1.1E1  |
+| 6 ... 15    | 6 ... 15    | $\mathcal{O}$(3E-1...3E1) |
+| $\geq 16$   | 6 ...       | $\mathcal{O}$(<3E-1) |
+
+The behaviour of decay from states with increasing principal number to the ground state is quantified below:
+
+| Upper State, $m_j$ | Lower State, $m_j$ | $\Gamma$ ($\text{us}^{-1}$) |
+|-------------|-------------|--------|
+| 6P3/2, 1/2  | 6S1/2, 1/2  | 2.2E1  |
+| 11P3/2, 1/2 | 6S1/2, 1/2  | 8.1E-2 |
+| 16P3/2, 1/2 | 6S1/2, 1/2  | 1.5E-2 |
+| 21P3/2, 1/2 | 6S1/2, 1/2  | 5.3E-3 |
+| 26P3/2, 1/2 | 6S1/2, 1/2  | 2.4E-3 |
+| 31P3/2, 1/2 | 6S1/2, 1/2  | 1.3E-3 |
+| 36P3/2, 1/2 | 6S1/2, 1/2  | 7.9E-4 |
+
+The behaviour of decay between adjacent energy levels with increasing principal number is quantified below:
+
+| Upper State, $m_j$ | Lower State, $m_j$ | $\Gamma$ ($\text{us}^{-1}$) |
+|-------------|-------------|--------|
+| 7P3/2, 1/2  | 6S1/2, 1/2  | 1.2E1  |
+| 12P3/2, 1/2 | 11S1/2, 1/2 | 1.1E-2 |
+| 17P3/2, 1/2 | 16S1/2, 1/2 | 9.0E-4 |
+| 22P3/2, 1/2 | 21S1/2, 1/2 | 1.7E-4 |
+| 27P3/2, 1/2 | 26S1/2, 1/2 | 5.1E-5 |
+| 32P3/2, 1/2 | 31S1/2, 1/2 | 1.9E-5 |
+| 37P3/2, 1/2 | 36S1/2, 1/2 | 8.2E-6 |
+
 
 CONTINUE HERE...
 
