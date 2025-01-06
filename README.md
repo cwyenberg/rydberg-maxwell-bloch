@@ -2,15 +2,13 @@
 
 We consider a thermal ensemble of Caesium atoms enclosed within a vapour cell and dressed with multiple laser fields. The laser fields are gaussian beams of geometries detailed where they appear within this project.
 
-We treat the system semi-classically, where the laser fields modify the system Hamiltonian living in the Hilbert space of atomic states but not referencing photonic number states. This approximation is valid in the strong-field limit, which is typically the case for atomic sensors.
+We treat the system semi-classically, where the laser fields modify the system Hamiltonian living in the Hilbert space of atomic states but not referencing photonic number states. This approximation is valid in the strong-field limit which is typically the case for atomic sensors.
 
-The laser fields possess such small bandwidth (much less than any level separation) that we neglect their spectral extent; however, the thermal distribution broadens the spectrum such that multiple Rydberg states must be included (the precise number depending upon the temperature). The lower atomic levels are, however, sufficiently separated such that intermediate levels between those on resonance with the lasers need not be modelled; however, each lower level is also broadened (which has a strong effect upon laser coupling).
+The laser fields possess such small bandwidth (much less than any level separation) that we neglect their spectral extent; however, Doppler broadening and spontaneous emission processes require that multiple atomic states be included. The atomic level spacing and broadening are, as analyzed elsewhere, of sufficient structures such that the lasers couple non-negligibly only to the engineered transitions; however, the broadening of the relevant levels has a strong effect upon the coupling strength.
 
-The states of the system are described by
+The state of the system is described by
 + A thermal distribution $P_v(T)$, corresponding to velocity classes and corresponding density operators $\rho_v$.
-+ A spatial volume corresponding to classical atomic coordinates, necessitated only by the non-uniform Gaussian beam
 + Atomic levels chosen by consideration of the dressing fields and Doppler broadening extent
-+ An intermediate "bath state" necessitated by spontaneous emission
 
 ## Level structure
 
