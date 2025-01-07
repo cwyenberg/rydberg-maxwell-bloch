@@ -39,13 +39,13 @@ Let us denote these states of particular interest as
 + 34d5/2 : $|r_1\rangle$, and
 + 34d3/2 : $|r_2\rangle$.
 
-Having identified the three non-trivial transitions ${g \leftrightarrow e}, {e \leftrightarrow r_1},$ and ${e\leftrightarrow r_2}$, we may prescribe convenient rotating frame factors 
+We will herein refer to the above four states ($g,e,r_1,r_2$) as the primary states, and all other states as the peripheral states. Having identified the three non-trivial transitions ${g \leftrightarrow e}, {e \leftrightarrow r_1},$ and ${e\leftrightarrow r_2}$, we may prescribe convenient rotating frame factors 
 $$
 \begin{align}
 \tilde{\omega}_g &= \omega_g, \\
 \tilde{\omega}_e &= \omega_g + \omega_p, \\
 \tilde{\omega}_{r_1/r_2} &= \omega_e + \omega_c, \text{ and} \\
-\tilde{\omega}_i &= \omega_i \text{ (all other states).}
+\tilde{\omega}_a &= \omega_a \text{ ($a$ denotes all remaining states).}
 \end{align}
 $$
 
@@ -55,7 +55,47 @@ H^\prime = -\delta_p |e\rangle\langle e| - \delta_{r_1} |r_1\rangle\langle r_1| 
 $$
 where $\sigma^x_{ab}=|a\rangle\langle b| + |b\rangle\langle a|$.
 
-## Spontaneous emission
+
+## Valid transitions
+
+At this point it is helpful to identify the non-vanishing transitions in order to limit the size of our atomic Hilbert space. The linearly polarized dipole transitions couple only states for which $\Delta l = \pm 1$, $\Delta j = 0, \pm 1$, and $\Delta m_j = 0$; while the circularly polarized dipole transitions couple states for which $\Delta l = \pm 1$, $\Delta j = 0, \pm 1$, and $\Delta m_j = \pm 1$ (the sign of $\Delta m_j$ corresponding to the handedness of the photon).
+
+Besides those states coupled via the dominant Rabi terms the system may only couple to other states
+populated via non-negligible decay processes. Towards an understanding of dominant decay channels
+we tabulate below a few of these transition rates. Note that for each given transition listed
+there exists also a transition of equal rate with negated initial and final $m_j$ values.
+
+| Upper State, $m_j$ | Lower State, $m_j$ | $\Gamma$ ($\text{us}^{-1}$) |
+|-------------|-------------|--------|
+| 6P3/2, 3/2  | 6S1/2, 1/2  | 3.3E1  |
+| 6P3/2, 1/2  | 6S1/2, 1/2  | 2.2E1  |
+| 6 ... 15    | 6 ... 15    | $\mathcal{O}$(3E-1...3E1) |
+| $\geq 16$   | 6 ...       | $\mathcal{O}$(<3E-1) |
+
+The behaviour of decay from states with increasing principal number to the ground state is quantified
+in the table below,
+
+| Upper State, $m_j$ | Lower State, $m_j$ | $\Gamma$ ($\text{us}^{-1}$) |
+|-------------|-------------|--------|
+| 6P3/2, 1/2  | 6S1/2, 1/2  | 2.2E1  |
+| 16P3/2, 1/2 | 6S1/2, 1/2  | 1.5E-2 |
+| 26P3/2, 1/2 | 6S1/2, 1/2  | 2.4E-3 |
+| 36P3/2, 1/2 | 6S1/2, 1/2  | 7.9E-4 |
+
+and the behaviour of decay between adjacent energy levels with increasing principal number is
+as follows:
+
+| Upper State, $m_j$ | Lower State, $m_j$ | $\Gamma$ ($\text{us}^{-1}$) |
+|-------------|-------------|--------|
+| 7P3/2, 1/2  | 6S1/2, 1/2  | 1.2E1  |
+| 17P3/2, 1/2 | 16S1/2, 1/2 | 9.0E-4 |
+| 27P3/2, 1/2 | 26S1/2, 1/2 | 5.1E-5 |
+| 37P3/2, 1/2 | 36S1/2, 1/2 | 8.2E-6 |
+
+The magnitudes of these transitions may serve to guide the truncation size of the atomic Hilbert space.
+
+
+## Spontaneous emission and the master equation
 
 We now move to a density operator picture in order to introduce dissipative and dephasing processes. We will introduce Doppler broadening in a later section. Let $\rho$ denote the density operator of the atomic system, and let $\mathcal{D}\left[L_{ab}\right]$ denote the dissipative superoperator describing decay from $|b\rangle$ to $|a\rangle$ with jump operator $L_{ab} = |a\rangle\langle b|$. $\mathcal{D}\left[L_{ab}\right]$ acts on $\rho$ according to
 $$
@@ -70,61 +110,39 @@ $$
 \frac{d \rho}{dt} = - i \left[H^\prime, \rho \right] + \mathcal{L}\left[\rho\right].
 $$
 
-## Valid transitions
-
-At this point it is helpful to identify the non-vanishing transitions in order to limit the size of our atomic Hilbert space. The linearly polarized dipole transitions couple only states for which $\Delta l = \pm 1$, $\Delta j = 0, \pm 1$, and $\Delta m_j = 0$; while the circularly polarized dipole transitions couple states for which $\Delta l = \pm 1$, $\Delta j = 0, \pm 1$, and $\Delta m_j = \pm 1$ (the sign of $\Delta m_j$ corresponding to the handedness of the photon).
-
-Besides those states coupled via the dominant Rabi terms, the system may only couple to other states populated via non-negligible decay processes. Towards an understanding of the dominant decay channels, we tabulate here a few of the transition rates. Note that for each given transition listed below there exists also a transition of equal rate with negated initial and final $m_j$ values.
-
-| Upper State, $m_j$ | Lower State, $m_j$ | $\Gamma$ ($\text{us}^{-1}$) |
-|-------------|-------------|--------|
-| 6P3/2, 3/2  | 6S1/2, 1/2  | 3.3E1  |
-| 6P3/2, 1/2  | 6S1/2, 1/2  | 2.2E1  |
-| 6P1/2, 1/2  | 6S1/2, -1/2 | 1.9E1  |
-| 6D5/2, 5/2  | 6P3/2, 3/2  | 1.6E1  |
-| 6D3/2, 3/2  | 6P1/2, 1/2  | 1.3E1  |
-| 6P3/2, 1/2  | 6S1/2, -1/2 | 1.1E1  |
-| 6 ... 15    | 6 ... 15    | $\mathcal{O}$(3E-1...3E1) |
-| $\geq 16$   | 6 ...       | $\mathcal{O}$(<3E-1) |
-
-The behaviour of decay from states with increasing principal number to the ground state is quantified below:
-
-| Upper State, $m_j$ | Lower State, $m_j$ | $\Gamma$ ($\text{us}^{-1}$) |
-|-------------|-------------|--------|
-| 6P3/2, 1/2  | 6S1/2, 1/2  | 2.2E1  |
-| 11P3/2, 1/2 | 6S1/2, 1/2  | 8.1E-2 |
-| 16P3/2, 1/2 | 6S1/2, 1/2  | 1.5E-2 |
-| 21P3/2, 1/2 | 6S1/2, 1/2  | 5.3E-3 |
-| 26P3/2, 1/2 | 6S1/2, 1/2  | 2.4E-3 |
-| 31P3/2, 1/2 | 6S1/2, 1/2  | 1.3E-3 |
-| 36P3/2, 1/2 | 6S1/2, 1/2  | 7.9E-4 |
-
-The behaviour of decay between adjacent energy levels with increasing principal number is quantified below:
-
-| Upper State, $m_j$ | Lower State, $m_j$ | $\Gamma$ ($\text{us}^{-1}$) |
-|-------------|-------------|--------|
-| 7P3/2, 1/2  | 6S1/2, 1/2  | 1.2E1  |
-| 12P3/2, 1/2 | 11S1/2, 1/2 | 1.1E-2 |
-| 17P3/2, 1/2 | 16S1/2, 1/2 | 9.0E-4 |
-| 22P3/2, 1/2 | 21S1/2, 1/2 | 1.7E-4 |
-| 27P3/2, 1/2 | 26S1/2, 1/2 | 5.1E-5 |
-| 32P3/2, 1/2 | 31S1/2, 1/2 | 1.9E-5 |
-| 37P3/2, 1/2 | 36S1/2, 1/2 | 8.2E-6 |
-
-
-CONTINUE HERE...
-
 Projecting the master equation onto the atomic basis, it has representation
-
-
 
 $$
 \begin{align}
-\dot{\rho}_{gg} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{ge} - \rho_{eg}\right) + \Gamma_{ge} \rho_{ee} + \sum_r \Gamma_{gr} \rho_{rr} \\
+\dot{\rho}_{gg} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{ge} - \rho_{eg}\right) + \Gamma_{ge} \rho_{ee} + \sum_{\alpha>g} \Gamma_{g\alpha} \rho_{\alpha\alpha} \\
 \dot{\rho}_{eg} &= i \delta_p \rho_{eg} + i \frac{\Omega_{ge,p}}{2} \left(\rho_{ee} - \rho_{gg}\right) - \frac{\Gamma_{ge}}{2} \rho_{eg} \\
-\dot{\rho}_{rg} &= i\delta_{c,r} \rho_{rg} - \frac{\Gamma_{gr}}{2} \rho_{rg}\\
-\dot{\rho}_{ee} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{eg} - \rho_{ge}\right) + i \sum_r \frac{\Omega_{er,c}}{2}\left(\rho_{er}-\rho_{re}\right) - \Gamma_{ge} \rho_{ee} + \sum_r \Gamma_{er} \rho_{rr} \\
+\dot{\rho}_{ee} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{eg} - \rho_{ge}\right) + i \sum_r \frac{\Omega_{er,c}}{2}\left(\rho_{er}-\rho_{re}\right) \nonumber \\
+&\quad +\sum_{\alpha>e} \Gamma_{e\alpha} \rho_{\alpha\alpha}  - \sum_{\alpha<e} \Gamma_{\alpha e} \rho_{ee} \\
 \dot{\rho}_{re} &= i \left(\delta_{c,r}-\delta_p\right) \rho_{re} + i \frac{\Omega_{er,c}}{2} \left(\rho_{rr}-\rho_{ee}\right) - \frac{\Gamma_{er}}{2} \rho_{re} \\
-\dot{\rho}_{rr} &= i \frac{\Omega_{er,c}}{2}\left(\rho_{re} - \rho_{er} \right) - \left(\Gamma_{er} + \Gamma_{gr}\right) \rho_{er}
+\dot{\rho}_{rr} &= i \frac{\Omega_{er,c}}{2}\left(\rho_{re} - \rho_{er} \right) \nonumber \\
+&\quad + \sum_{\alpha>r} \Gamma_{r\alpha} \rho_{\alpha\alpha} - \sum_{\alpha<r} \Gamma_{\alpha r} \rho_{rr} \\
+\dot{\rho}_{aa} &= \sum_{b>a} \Gamma_{a b} \rho_{bb} - \sum_{b<a} \Gamma_{ba} \rho_{aa}
 \end{align}
 $$
+---
+$$
+\begin{align}
+\dot{\rho}_{rg} &= i\delta_{c,r} \rho_{rg} - \frac{\Gamma_{gr}}{2} \rho_{rg} \\
+\dot{\rho}_{a g} &= - \frac{\Gamma_{g a}}{2} \rho_{a g} \\
+\dot{\rho}_{a e} &= -i \delta_p \rho_{a e} - \frac{\Gamma_{a e}}{2} \rho_{a e} \\
+\dot{\rho}_{a r} &= -i \delta_{c,r} \rho_{a r} - \frac{\Gamma_{a r}}{2} \rho_{a r} \\
+\dot{\rho}_{a, b \neq a} &= -\frac{\Gamma_{ab}}{2} \rho_{ab}
+\end{align}
+$$
+
+where here $r$ denotes either of $r_1,r_2$; $\alpha$ denotes any state; $a,b$ denote any peripheral states; i.e., states outside of $g,e,r_1,r_2$; and an index inequality (e.g., $\alpha>g$) refers to the energy level ordering of the corresponding states. The equations are partitioned by a horizontal dividing line for the reason explained below.
+
+
+## Complexity of evolution
+
+The above master equations describe the disjoint evolution of two independent collections of density matrix elements. On the one hand, we have the set which includes the primary populations, a subset of the coherences between the primary populations, and the peripheral populations; i.e, the set of $\rho_{\alpha\alpha}, \rho_{ge}, \rho_{e r_1}, \rho_{e r_2}$. These quantities evolve into each other according to the first collection of equations before the horizontal dividing line above.
+
+On the other hand, we have any coherences involving the peripheral states, as well as coherences between ground and Rydberg states; i.e., the set of $\rho_{\alpha a}, \rho_{g r}$. These quantities evolve independently and may be trivially propagated from their initial conditions.
+
+In total, for $N$ peripheral states, we must evolve a set of $N+7$ first-order linear differential equations in $N+7$ unknowns.
+
