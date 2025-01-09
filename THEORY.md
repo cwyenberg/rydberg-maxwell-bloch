@@ -146,3 +146,22 @@ On the other hand, we have any coherences involving the peripheral states, as we
 
 In total, for $N$ peripheral states, we must evolve a set of $N+7$ first-order linear differential equations in $N+7$ unknowns.
 
+
+
+## Steady-state solution
+
+Let us denote the system of $N+7$ by $N+7$ equations in as many unkowns $\rho$ by the equation
+$$
+\dot{\rho} = A \rho.
+$$
+The steady-state condition is that $0 = A \rho$, which implies one of two cases:
++ $A$ is invertible and thus $\rho$ vanishes, or
++ $A$ is non-invertible and $\rho$ lives in its null space.
+
+In the former case there exists no steady-state solution. In the latter case, if the null space of $A$ is one-dimensional then $\rho$ is determined by the additional constraint that $\text{Tr}[\rho]=1$. If the null space of $A$ is higher than one-dimensional then multiple steady-state solutions exist; however, the initial conditions of the system determine which steady state the system will evolve into.
+
+For our systems we will, in fact, only encounter the case where $A$ has a one-dimensional null space such that $\rho$ is determined by the two equations $A\rho=0$ and $\text{Tr}[\rho]=1$; together, these two equations form $N+8$ equations in $N+7$ unknowns; however, row reduction of $A\rho=0$ will lead to a redundant $0=0$ equation which may be tossed out and replaced with the $\text{Tr}[\rho]=1$ condition. Formally, it is simplest to construct a new $A'$ comprising $A$ augmented with a row defining $\text{Tr}[\rho]$; and $b'$ a vector of $0$s augmented with the trace condition 1. Then, we solve the normal equations
+$$
+{A^\prime}^\text{T} A^\prime \rho = {A^\prime}^\text{T} b^\prime
+$$
+for the steady density operator state.
