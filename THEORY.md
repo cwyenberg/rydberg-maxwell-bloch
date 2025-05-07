@@ -144,3 +144,36 @@ The above master equations describe the disjoint evolution of two independent co
 On the other hand, we have any coherences involving the peripheral states, as well as coherences between ground and Rydberg states; i.e., the set of $\rho_{\alpha a}, \rho_{g r}$. These quantities evolve independently and may be trivially propagated from their initial conditions.
 
 In total, for $N$ peripheral states, we must evolve a set of $N+7$ first-order linear differential equations in $N+7$ unknowns.
+
+
+
+## Steady-state solution
+
+Let us denote the system of $N+7$ by $N+7$ equations in as many unkowns $\rho$ by the equation
+$$
+\dot{\rho} = A \rho.
+$$
+The steady-state condition is that $0 = A \rho$, which implies one of two cases:
++ $A$ is invertible and thus $\rho$ vanishes, or
++ $A$ is non-invertible and $\rho$ lives in its null space.
+
+In the former case there exists no steady-state solution. In the latter case, if the null space of $A$ is one-dimensional then $\rho$ is determined by the additional constraint that $\text{Tr}[\rho]=1$. If the null space of $A$ is higher than one-dimensional then multiple steady-state solutions exist; however, the initial conditions of the system determine which steady state the system will evolve into.
+
+For our systems we will, in fact, only encounter the case where $A$ has a one-dimensional null space such that $\rho$ is determined by the two equations $A\rho=0$ and $\text{Tr}[\rho]=1$; together, these two equations form $N+8$ equations in $N+7$ unknowns; however, row reduction of $A\rho=0$ will lead to a redundant $0=0$ equation which may be tossed out and replaced with the $\text{Tr}[\rho]=1$ condition. Formally, it is simplest to construct a new $A'$ comprising $A$ augmented with a row defining $\text{Tr}[\rho]$; and $b'$ a vector of zeros augmented with the trace condition 1. Then, we solve the normal equations
+$$
+{A^\prime}^\text{T} A^\prime \rho = {A^\prime}^\text{T} b^\prime
+$$
+for the steady density operator state.
+
+
+## Absorption spectrum
+
+The primary observable of interest is the absorption spectrum of the probe field. Analysis of electromagnetic propagation through a medium finds that the absorption of a field nearly resonant with some transition is equal to the imaginary part of the coherence between the corresponding two states; i.e., for the probe field near the $g,e$ transition, the absorption is given by the imaginary part of $\rho_{eg}$. From the above steady-state equations we may solve for
+$$
+\rho_{eg} = \frac{\Omega_{ge,p}\left( \rho_{gg} - \rho_{ee} \right)}{2 \delta_p + i \Gamma_{ge}}
+$$
+such that the absorption $P_\text{abs}$ is
+$$
+P_\text{abs} = \frac{\Omega_{ge} \Gamma_{ge} / 4}{\delta^2_p + (\Gamma_{ge}/2)^2} \left(\rho_{ee}-\rho_{gg}\right).
+$$
+The multiplicative factor out front is a Lorentzian in the detuning of the probe field with FWHM equal to $\Gamma_{ge}$, corresponding to a typical line absorption shape. In the case of electromagnetically induced transparency, however, a critical value of $\delta_p$ drives the system into a dark state having no population in $\rho_{ee}$ or in $\rho_{gg}$; the absorption thus vanishes within a very narrow bandwidth where the rightmost multiplier vanishes. THIS NEEDS ANALYSIS...
