@@ -48,7 +48,6 @@ $$
 \tilde{\omega}_a &= \omega_a \text{ ($a$ denotes all remaining states).}
 \end{align}
 $$
-
 such that
 $$
 H^\prime = -\delta_p |e\rangle\langle e| - \delta_{r_1} |r_1\rangle\langle r_1| - \delta_{r_2} |r_2\rangle\langle r_2| + \frac{\Omega_{ge, p}}{2} \sigma^x_{ge} + \frac{\Omega_{er_1, c}}{2} \sigma^x_{er_1} + \frac{\Omega_{er_2, c}}{2} \sigma^x_{er_2},
@@ -115,9 +114,9 @@ Projecting the master equation onto the atomic basis, it has representation
 $$
 \begin{align}
 \dot{\rho}_{gg} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{ge} - \rho_{eg}\right) + \Gamma_{ge} \rho_{ee} + \sum_{\alpha>g} \Gamma_{g\alpha} \rho_{\alpha\alpha} \\
-\dot{\rho}_{eg} &= i \delta_p \rho_{eg} + i \frac{\Omega_{ge,p}}{2} \left(\rho_{ee} - \rho_{gg}\right) - \frac{\Gamma_{ge}}{2} \rho_{eg} \\
-\dot{\rho}_{ee} &= i \frac{\Omega_{ge,p}}{2} \left(\rho_{eg} - \rho_{ge}\right) + i \sum_r \frac{\Omega_{er,c}}{2}\left(\rho_{er}-\rho_{re}\right) \nonumber \\
-&\quad +\sum_{\alpha>e} \Gamma_{e\alpha} \rho_{\alpha\alpha}  - \sum_{\alpha<e} \Gamma_{\alpha e} \rho_{ee} \\
+\dot{\rho}_{eg;v} &= i \delta_p \rho_{eg;v} + i \frac{\Omega_{ge,p;v}}{2} \left(\rho_{ee} - \rho_{gg}\right) - \frac{\Gamma_{ge}}{2} \rho_{eg} \\
+\dot{\rho}_{ee;v} &= i \frac{\Omega_{ge,p;v}}{2} \left(\rho_{eg;v} - \rho_{ge;v}\right) + i \sum_r \frac{\Omega_{er,c;v}}{2}\left(\rho_{er;v}-\rho_{re;v}\right) \nonumber \\
+&\quad +\sum_{\alpha>e} \Gamma_{e\alpha} \rho_{\alpha\alpha;v}  - \sum_{\alpha<e} \Gamma_{\alpha e} \rho_{ee;v} \\
 \dot{\rho}_{re} &= i \left(\delta_{c,r}-\delta_p\right) \rho_{re} + i \frac{\Omega_{er,c}}{2} \left(\rho_{rr}-\rho_{ee}\right) - \frac{\Gamma_{er}}{2} \rho_{re} \\
 \dot{\rho}_{rr} &= i \frac{\Omega_{er,c}}{2}\left(\rho_{re} - \rho_{er} \right) \nonumber \\
 &\quad + \sum_{\alpha>r} \Gamma_{r\alpha} \rho_{\alpha\alpha} - \sum_{\alpha<r} \Gamma_{\alpha r} \rho_{rr} \\
@@ -145,4 +144,3 @@ The above master equations describe the disjoint evolution of two independent co
 On the other hand, we have any coherences involving the peripheral states, as well as coherences between ground and Rydberg states; i.e., the set of $\rho_{\alpha a}, \rho_{g r}$. These quantities evolve independently and may be trivially propagated from their initial conditions.
 
 In total, for $N$ peripheral states, we must evolve a set of $N+7$ first-order linear differential equations in $N+7$ unknowns.
-
