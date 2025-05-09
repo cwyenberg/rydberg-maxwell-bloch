@@ -37,21 +37,15 @@ The physical decay rates are computed by ARC.
 """
 
 # User config entries:
-Detune_p_max = 80.0            # Probe detuning plot limit (MHz)
-Rabi_p_weak = 0.5              # Weaker probe Rabi frequency (MHz)
-Rabi_p_strong = 1.0            # Stronger probe Rabi frequency (MHz)
-Rabi_c = 10.0                  # Coupling Rabi frequency (MHz)
+Detune_p_max = 100.0           # Probe detuning plot limit (MHz)
+Rabi_p = 0.3                   # Weaker probe Rabi frequency (MHz)
+Omega_c_over_Gamma_eg_weak = 0.3               # Weaker coupling Rabi frequency (MHz)
+Omega_c_over_Gamma_eg_strong = 3.0             # Stronger coupling Rabi frequency (MHz)
 Detune_c = 0.0                 # Coupling laser detuning (MHz)
-n_Detune = 1000                # Number of probe detuning points
+n_Detune = 1001                # Number of probe detuning points (odd number ensures 0 is included)
 
 # Construct a Caesium atom instance from ARC
 cs = Caesium()
-
-# Convert to angular frequencies
-Omega_p_weak = 2. * np.pi * Rabi_p_weak
-Omega_p_strong = 2. * np.pi * Rabi_p_strong
-Omega_c = 2. * np.pi * Rabi_c
-Delta_c = 2. * np.pi * Detune_c
 
 # Effective lifetimes (excluding blackbody radiation) in us
 e_lifetime = 1e6 * cs.getStateLifetime(6, 1, 1.5)
@@ -60,6 +54,12 @@ r_lifetime = 1e6 * cs.getStateLifetime(34, 2, 2.5)
 # Obtain system parameters from ARC
 Gamma_eg = 2. * np.pi / e_lifetime              # Decay rate Gamma value from |e> to |g> (rad/us)
 Gamma_re = 2. * np.pi / r_lifetime              # Decay rate Gamma value from |r> to |e> (rad/us)
+
+# Convert to angular frequencies
+Omega_p = 2. * np.pi * Rabi_p
+Omega_c_weak = Omega_c_over_Gamma_eg_weak * Gamma_eg
+Omega_c_strong = Omega_c_over_Gamma_eg_strong * Gamma_eg
+Delta_c = 2. * np.pi * Detune_c
 
 # Basis states: |g>, |e>, |r>
 ket_g = basis(3, 0)
@@ -89,14 +89,14 @@ for Delta_p in Delta_p_vals:
 
     # Hamiltonians in rotating frame
     H_weak = (
-        .5 * Omega_p_weak * (sigma_eg + sigma_ge)
-        + .5 * Omega_c * (sigma_re + sigma_er)
+        .5 * Omega_p * (sigma_eg + sigma_ge)
+        + .5 * Omega_c_weak * (sigma_re + sigma_er)
         - Delta_p * ket_e * ket_e.dag()
         - (Delta_p + Delta_c) * ket_r * ket_r.dag()
     )
     H_strong = (
-        .5 * Omega_p_strong * (sigma_eg + sigma_ge)
-        + .5 * Omega_c * (sigma_re + sigma_er)
+        .5 * Omega_p * (sigma_eg + sigma_ge)
+        + .5 * Omega_c_strong * (sigma_re + sigma_er)
         - Delta_p * ket_e * ket_e.dag()
         - (Delta_p + Delta_c) * ket_r * ket_r.dag()
     )
@@ -112,14 +112,23 @@ for Delta_p in Delta_p_vals:
 # Plotting
 plt.rcParams.update({'font.size': 10})
 plt.figure(figsize=(6, 4))
-plt.plot(Delta_p_vals / (2 * np.pi), absorption_weak, label='Probe Rabi frequency 0.5 MHz', color="#CF123D")
-plt.plot(Delta_p_vals / (2 * np.pi), absorption_strong, label='Probe Rabi frequency 1.0 MHz', color="#0492D2")
+plt.plot(
+    Delta_p_vals / (2 * np.pi),
+    absorption_weak,
+    label=rf'$\Omega_\mathrm{{c}}/\Gamma_{{\mathrm{{eg}}}} = {Omega_c_over_Gamma_eg_weak:.1f}$',
+    color="#CF123D"
+    )
+plt.plot(
+    Delta_p_vals / (2 * np.pi),
+    absorption_strong,
+    label=rf'$\Omega_\mathrm{{c}}/\Gamma_{{\mathrm{{eg}}}} = {Omega_c_over_Gamma_eg_strong:.1f}$',
+    color="#0492D2",
+    ls='--'
+    )
 plt.axvline(0, color='gray', linestyle='--', linewidth=0.5)
 plt.xlabel("Probe Detuning (MHz)")
 plt.ylabel("Probe Absorption (arb.)")
-# plt.title("Electromagnetically Induced Transparency (EIT) in Caesium Vapour Cell")
-# plt.grid(True)
-plt.legend(fontsize=10)
+plt.legend(fontsize=10, loc='center left')
 plt.tight_layout()
 plt.savefig('caesium_eit.png', dpi=300)
 plt.savefig('caesium_eit.eps')
